@@ -1,0 +1,6 @@
+PRBS Generation
+https://en.wikipedia.org/wiki/Pseudorandom_binary_sequence
+https://en.wikipedia.org/wiki/Linear-feedback_shift_register
+https://github.com/root-project/root/issues/8199#issuecomment-843369054
+https://blog.kurttomlinson.com/posts/prbs-pseudo-random-binary-sequence (checking sequence)
+https://www.halvorsen.blog/documents/programming/python/resources/powerpoints/Transfer%20Functions%20with%20Python.pdf
