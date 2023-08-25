@@ -90,9 +90,9 @@ class PRBS_seq():
 sigFreq = 10*1e9
 
 a = PRBS_seq()
-tt,yy = a.GenerateSampledSequence(False,sigFreq,sigFreq*2.5,0.4)
+tt,yy = a.GenerateSampledSequence(True,sigFreq,sigFreq*25,0.4)
 
-plt.plot(tt[0:100],yy[0:100])
+plt.plot(tt[0:1000],yy[0:1000])
 
 
 w = 2*pi*10*1e9

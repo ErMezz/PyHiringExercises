@@ -9,9 +9,10 @@ import scipy as sp
 from skrf import Network
 
 
-sigFreq = 25*1e9
-sampling = 20*sigFreq
-a = PRBS_seq([15,14])
+sigFreq = 1.5*26.5625*1e9
+sampling = 10*sigFreq
+# a = PRBS_seq([13,12,2,1])
+a = PRBS_seq([11,9])
 t2,y2 = a.GenerateSampledSequence(True,sigFreq,sampling,0.4)
 # plt.plot(t2,y2)
 
@@ -75,7 +76,7 @@ for j in [0,15]:
     convo = np.convolve(y2,z,'valid')
 
     nconvo = convo[1000:300000]
-    rot = 4
+    rot = 2
     nconvo = np.append(nconvo[rot:],nconvo[:rot])
     lol,newDat = [],[]
     for dat in nconvo:
@@ -94,7 +95,7 @@ for j in [0,15]:
     newt =[jj/(6*1e10) for jj in range(len(convo))]
     plt.subplot(211)
     for bro in newDat:
-        plt.plot(eEyeT,bro)
+        plt.plot(eEyeT,bro,'b',alpha = 0.05)
     plt.subplot(212)
     plt.plot(nconvo)
     # plt.plot(ring_slot.f,ring_slot.s[:,1,0])
