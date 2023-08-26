@@ -3,9 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import pi,floor
 from PRBS import PRBS_seq
-#%matplotlib qt
-import pandas as pd
-import scipy as sp
 from skrf import Network
 
 
