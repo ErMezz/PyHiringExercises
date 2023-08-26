@@ -16,7 +16,6 @@ e_prev = 0
 
 Pi,Ii,Di = [],[0],[0]
 
-# %matplotlib inline
 
 def PID(Kp, Ki, Kd, setpoint, measurement):
     global time, integral, time_prev, e_prev, Pi, Ii, Di

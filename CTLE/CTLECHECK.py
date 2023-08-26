@@ -1,12 +1,8 @@
 import control as ct
 import numpy as np
 import matplotlib.pyplot as plt
-from math import pi,floor,log10
-from PRBS import PRBS_seq
-#%matplotlib qt
-import pandas as pd
-import scipy as sp
-from skrf import Network
+from math import pi,log10
+
 
 
 
@@ -16,6 +12,7 @@ Z1arr = [1,9.463748*2*pi,9.248465*2*pi,9.069645*2*pi,8.640319*2*pi,8.255665*2*pi
 Plf = 1.2*2*pi*1e9
 Zlfarr = [1,1.2*2*pi,1.15*2*pi,1.1*2*pi,1.075*2*pi,1.05*2*pi,1.025*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi,1*2*pi]
 
+ticks =[]
 for j in range(1,len(Garr)):
     G = Garr[j]
     Z1 = Z1arr[j]*1e9
@@ -42,5 +39,7 @@ for j in range(1,len(Garr)):
     plt.xscale("log")
 
     plt.plot(omega/1e9,[20*log10(magg/maxmag) for magg in mag], label = f'{j/2+0.5}')
-    print("doneso")
+    ticks.append(-(j/2 + 0.5))
 plt.legend()
+plt.grid(True,'both')
+plt.yticks(ticks)
