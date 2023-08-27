@@ -35,7 +35,7 @@ w = 2*pi*f
 wn = 2*pi*fn
 
 Amp = 1
-AmpN = pi
+AmpN = 1
 
 periods = 1000
 steps = 20000
@@ -108,7 +108,7 @@ for i in remo:
 
 plt.subplot(313)
 
-plt.hist(zeros, density = True, bins=26)
+plt.hist(zeros, density = False, bins=49)
 plt.hist
 
 print('PJpp =' + f'{max(zeros)-min(zeros)}')

@@ -10,7 +10,7 @@ from PRBS import PRBS_seq
 from skrf import Network
 
 
-sigFreq = 1.5*26.5625*1e9
+sigFreq = 2*26.5625*1e9
 sampling = 10*sigFreq
 # a = PRBS_seq([13,12,2,1])
 a = PRBS_seq([11,9])
@@ -29,7 +29,6 @@ ring_slot = Network('tx_test_ficture.s4p')
 ring_slot.renumber([0, 1, 2, 3], [0, 2, 1, 3])  # pair ports as 1,3 and 2,4 to match experimental setup
 
 ring_slot.se2gmm(p=2)
-
 
 
 orig = ring_slot.s
@@ -66,7 +65,7 @@ for j in [0,15]:
     ring_slot.s = orig
 
     for i in range(0,len(ring_slot.f)):
-        ring_slot.s[i][1][0] = ring_slot.s[i][1][0] * H(ring_slot.f[i]*pi)
+        ring_slot.s[i][1][0] = ring_slot.s[i][1][0] * H(ring_slot.f[i]*pi*2)
         # ring_slot.s[i][1][0] = H(ring_slot.f[i]*2*pi)
         # ring_slot.s[i][1][0] = 1
         pass

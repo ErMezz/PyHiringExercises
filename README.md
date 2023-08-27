@@ -10,7 +10,7 @@ Non-standard packages:
 
 Exercise status:
  - 1: Done
- - 2: Fix Graphs
+ - 2: Done
  - 3: Waiting for answer
  - 4: To Do
  - 5: Done
