@@ -10,7 +10,7 @@ from PRBS import PRBS_seq
 from skrf import Network
 
 
-sigFreq = 2*26.5625*1e9
+sigFreq = 1.5*26.5625*1e9
 sampling = 10*sigFreq
 # a = PRBS_seq([13,12,2,1])
 a = PRBS_seq([11,9])
@@ -46,8 +46,8 @@ z = y[:,1,0]
 
 # plt.plot(t,z)
 
-# for j in range(len(Garr)):
-for j in [0,15]:
+for j in range(len(Garr)):
+# for j in [0,15]:
     plt.figure(j)
     G = Garr[j]
     Z1 = Z1arr[j]*1e9
@@ -65,7 +65,7 @@ for j in [0,15]:
     ring_slot.s = orig
 
     for i in range(0,len(ring_slot.f)):
-        ring_slot.s[i][1][0] = ring_slot.s[i][1][0] * H(ring_slot.f[i]*pi*2)
+        ring_slot.s[i][1][0] = ring_slot.s[i][1][0] * H(1j*ring_slot.f[i]*pi*2)
         # ring_slot.s[i][1][0] = H(ring_slot.f[i]*2*pi)
         # ring_slot.s[i][1][0] = 1
         pass
