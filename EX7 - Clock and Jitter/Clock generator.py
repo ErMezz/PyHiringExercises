@@ -2,7 +2,6 @@
 @author: ErMezz
 """
 
-import math
 from math import sin,pi
 import matplotlib.pyplot as plt
 import scipy
@@ -26,7 +25,6 @@ def ZeroSrc(func,first_points = [0.4,0.6], target = 0,prec = 0.001):
     return x2
 
 fu = lambda A,x: A*sin(x)
-fuN = lambda A,x: A*sin(x)
 
 f = 1e8
 fn = 1e6
@@ -38,24 +36,28 @@ Amp = 1
 AmpN = 1
 
 periods = 1000
-steps = 20000
+steps = 10*periods
 
-t = np.linspace(0, periods/f,steps)
+t = np.linspace(0, periods/(f),steps,False)
 y = [fu(Amp,tt*w) for tt in t]
-yt = [fu(Amp,w*tt+fuN(AmpN,wn*tt)) for tt in t]
-yn = [fuN(AmpN,tt*wn) for tt in t]
+yt = [fu(Amp,w*tt+fu(AmpN,wn*tt)) for tt in t]
+yn = [fu(AmpN,tt*wn) for tt in t]
 
 
 newDat = []
-lol = []
-i=0
+eye = []
+i,j=0,0
 for dat in yt:
-    lol.append(dat)
+    eye.append(dat)
     i+=1
+    j+=1
     if i>(steps / periods) - 1:
-        i=0
-        newDat.append(lol)
-        lol = []
+        try:
+            i=0
+            eye.append(yt[j])
+            newDat.append(eye)
+            eye = []
+        except: pass
 
 
 plt.figure(1)
@@ -69,7 +71,7 @@ zeros = []
 mini,maxi = [],[]
 for dat in newDat:
     try:
-        x,y = [i/(len(dat)-1) for i in range(0,len(dat))],dat
+        x,y = [(1/f)*i/(len(dat)-1) for i in range(0,len(dat))],dat
         i,j,k = 0,0,0
         found = False
         for yy in y:
@@ -92,7 +94,7 @@ for dat in newDat:
         mini.append(mi)
         maxi.append(ma)
         fit = scipy.interpolate.UnivariateSpline(x,y,k=5,s=2)
-        zeros.append(ZeroSrc(fit,[mi,ma]))
+        zeros.append(ZeroSrc(fit,[mi,ma],prec = 1e-8))
         plt.plot(x,y,alpha = 0.07,label=f'{i}')
     except:
         pass
@@ -108,7 +110,7 @@ for i in remo:
 
 plt.subplot(313)
 
-plt.hist(zeros, density = False, bins=49)
+plt.hist(zeros, density = False, bins=9)
 plt.hist
 
 print('PJpp =' + f'{max(zeros)-min(zeros)}')
