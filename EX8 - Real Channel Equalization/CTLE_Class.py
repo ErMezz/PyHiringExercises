@@ -5,6 +5,7 @@ from math import pi,log10
 import control as ct
 import numpy as np
 
+# Class to emulate the CTLE filter using Control library and provided data
 class CTLE():
 
     Garr = [0.891251,0.841395,0.794328,0.749894,0.707946,0.668344,0.630957,0.595662,0.562341,0.530884,0.501187,0.473151,0.446684,0.421697,0.398107,0.375837,0.354813]

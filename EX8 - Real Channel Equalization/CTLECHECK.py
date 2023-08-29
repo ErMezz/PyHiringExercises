@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from CTLE_Class import CTLE
 
 
+# Draws CTLE a la IEEE 802.3. Used to check if class is implemented correctly
+
 filt = CTLE()
 
 ticks =[]
