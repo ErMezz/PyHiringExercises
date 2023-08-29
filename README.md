@@ -16,5 +16,5 @@ Exercise status:
  - 5: Done
  - 6: Fix graphs, add single bin with all
  - 7: Done. Fix graphs and func import. Check original val. Noise shape seems ok, pkpk should be A / (pi*f)
- - 8: 70%. Code the eye heigh checkers
+ - 8: Done.
  
