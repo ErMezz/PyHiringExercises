@@ -20,7 +20,7 @@ wm = 2*pi*f
 Q = 200
 
 t = np.linspace(0,(len(y)/40)/f,len(y),False)
-y = [sin(wm*tt) for tt in t]
+y = [cos(wm*tt) for tt in t]
 # wm = wm - wm/1000
 # w = [2*pi*(i)*1e7 for i in range(10000)]
 # plt.figure(1)
@@ -31,13 +31,15 @@ plt.plot(t,y)
 plt.subplot(313)
 zpI = [y[zz] * cos(wm*t[zz]) for zz in range(len(y))]
 zmQ = [y[zz] * - sin(wm*t[zz]) for zz in range(len(y))]
-wh = 2*pi*125000
+wh = wm*0.1
 H = ct.tf([wh],[1,wh])
+# H = ct.tf([1],[1])
+
 tttp,filpI = ct.forced_response(H,t,zpI)
 tttm,filmQ = ct.forced_response(H,t,zmQ)
 # plt.plot(np.fft.fftfreq(len(t),d=t[1]-t[0]),abs(sp.fft.fft(y)))
-plt.plot(np.fft.fftfreq(len(filpI),d=tttp[1]-tttp[0]),abs(sp.fft.fft(filpI)))
-# plt.plot(np.fft.fftfreq(len(filmQ),d=tttm[1]-tttm[0]),abs(sp.fft.fft(filmQ)))
+# plt.plot(np.fft.fftfreq(len(filpI),d=tttp[1]-tttp[0]),(sp.fft.fft(filpI).real))
+plt.plot(np.fft.fftfreq(len(filmQ),d=tttm[1]-tttm[0]),(sp.fft.fft(filmQ).real))
 plt.subplot(312)
 plt.plot(t,y)
 # plt.plot(t,zp)
@@ -47,7 +49,7 @@ plt.plot(t,y)
 
 newt,newpI,newmQ = [],[],[]
 for i in range(len(tttp)):
-    if i%1 == 0:
+    if i%100 == 0:
         newt.append(tttp[i])
         newpI.append(filpI[i])
         newmQ.append(filmQ[i])
