@@ -46,5 +46,5 @@ ax2.legend(loc = 'lower right')
 plt.tight_layout()
 fig.savefig('Climatic_Chmaber_PID.png', bbox_inches='tight')
 # Prevents Spyder from forcefully showing figure because of interactive mode
-# plt.close(fig)
+plt.close(fig)
 print('Figure saved as Climatic_Chmaber_PID.png')

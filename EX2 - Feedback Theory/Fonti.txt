@@ -1,1 +1,0 @@
-https://softinery.com/implementation-of-pid-controller-in-python/

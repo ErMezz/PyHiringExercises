@@ -11,7 +11,7 @@ from PRBS import PRBS_seq
 
 
 plt.style.use('seaborn-v0_8-dark-palette')
-plt.rcParams["font.family"] = "Lato"
+plt.rcParams["font.family"] = "Serif"
 
 # Generate the PRBS_seq class instance using defaults (PRBS13)
 seq = PRBS_seq()
