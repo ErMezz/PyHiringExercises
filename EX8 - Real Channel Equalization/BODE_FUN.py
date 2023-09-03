@@ -9,8 +9,8 @@ from CTLE_Class import CTLE
 
 # Support function to make Bode plot
 def MakeBode(freqs,discrH):
-    bode = [abs(discrH[p][1][0]) for p in range(len(freqs))]
-    return freqs,[20*log10(magg/max(bode)) for magg in bode]
+    bode = [abs(discrH[p]) for p in range(len(freqs))]
+    return freqs,[20*log10(magg) for magg in bode]
     
 
 # Draw superimposed bode plots of the system. Checking purpose
