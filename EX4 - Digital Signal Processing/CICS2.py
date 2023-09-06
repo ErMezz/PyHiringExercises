@@ -78,18 +78,17 @@ if __name__ == "__main__":
     print("george-smart.co.uk       github.com/m1geo\n\n")
 
     ## Configuration
-    samples            = 64000+1    # extra one to ensure the combs run on the final iteration.
-    decimation         = 64         # any integer; powers of 2 work best.
+    samples            = 50000+1    # extra one to ensure the combs run on the final iteration.
+    decimation         = 25         # any integer; powers of 2 work best.
     stages             = 1            # pipelined I and C stages
 
     ## Function to generate an input sample
     def inp_samp(x):
-        z = 0
-        z += 10 * random.randint(-10000,10000)/10000 # noise
-        z += 10 * np.sin(2 * np.pi * 40 * x)
-        z += 10 * np.sin(2 * np.pi * 400 * x)
-        z += 10 * np.sin(2 * np.pi * 4000 * x)
-        z += 10 * np.sin(2 * np.pi * 40000 * x)
+        z = 1 * random.randint(-10000,10000)/10000 # noise
+        z += 1 * np.sin(2 * np.pi * 39500 * x)
+        z += 1 * np.sin(2 * np.pi * 39000 * x)
+        z += 1 * np.sin(2 * np.pi * 41000 * x)
+        z += 100 * np.sin(2 * np.pi * 40000 * x)
         return z
     
     ## Calculate normalising gain
@@ -101,44 +100,33 @@ if __name__ == "__main__":
 
     ## Generate Input/Output Vectors
     print("Generating input vector... ", end="")
-    input_samples    = [inp_samp(a/samples) for a in range(samples)]
+    input_samples    = [inp_samp(a/5000) for a in range(samples)]
     output_samples   = []
     print("Done")
+    
+    input_samples_Q = [input_samples[i] * math.sin(2 * np.pi * 40000 * i/5000) for i in range(len(input_samples))]
+    input_samples_P = [input_samples[i] * math.cos(2 * np.pi * 40000 * i/5000) for i in range(len(input_samples))]
 
     ## Generate Integrator and Comb lists (Python list of objects)
     intes = [integrator() for a in range(i_stages)]
     combs = [comb()          for a in range(c_stages)]
 
     CICS =  CIC(decimation,stages)
-    INCIC = InCIC(decimation, stages)
 
-    ## Decimating CIC Filter
-    print("Running filter, this may take a while... ", end="")
-    for (s, v) in enumerate(input_samples):
-        z = v
-        for i in range(i_stages):
-            z = intes[i].update(z)
-        
-        if (s % decimation) == 0: # decimate is done here
-            for c in range(c_stages):
-                z = combs[c].update(z)
-                j = z
-            output_samples.append(j/gain) # normalise the gain
-
-    rebuild = []
+    rebuild_Q = []
     
-    for (s, v) in enumerate(input_samples):
+    for (s, v) in enumerate(input_samples_Q):
         z = CICS.update(v)
-        if z != False: rebuild.append(z/gain)
+        if z != False: rebuild_Q.append(z/gain)
+
+    rebuild_P = []
+
+    for (s, v) in enumerate(input_samples_P):
+        z = CICS.update(v)
+        if z != False: rebuild_P.append(z/gain)
     
     trebuild = []
-    
-    for (s, v) in enumerate(output_samples):
-        z = INCIC.update(v)
-        trebuild += [zz/gain for zz in z]
-            
-    print("Done")
-
+                
     ## Crude function to FFT and slice data, with 20log10 result
     def fft_this(data):
         N = len(data)
@@ -148,30 +136,26 @@ if __name__ == "__main__":
     print("Preparing graphs... ", end="")
     plt.figure(1)
     plt.suptitle("Simple Test of Decimating CIC filter")
-
     plt.subplot(2,2,1)
     plt.title("Time domain input")
-    plt.plot(input_samples)
-    plt.plot(trebuild)
+    plt.plot(input_samples_P)
 
     plt.grid()
 
     plt.subplot(2,2,3)
     plt.title("Frequency domain input")
-    plt.plot(fft_this(input_samples))
+    plt.plot(fft_this(input_samples_P))
 
     plt.grid()
 
     plt.subplot(2,2,2)
     plt.title("Time domain output")
-    plt.plot(output_samples)
-    plt.plot(rebuild)
+    plt.plot(rebuild_P)
     plt.grid()
 
     plt.subplot(2,2,4)
     plt.title("Frequency domain output")
-    plt.plot(fft_this(output_samples))
-    plt.plot(fft_this(rebuild))
+    plt.plot(fft_this(rebuild_P))
     plt.grid()
     print("Done")
     
