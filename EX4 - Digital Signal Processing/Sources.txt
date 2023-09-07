@@ -3,3 +3,7 @@
 [10]: https://github.com/m1geo/CIC-Filter
 
 Eugene Hogenauer, "An Economical Class of Digital Filters For Decimation and Interpolation,"
+
+https://dsp.stackexchange.com/questions/19584/how-to-make-cic-compensation-filter Compensator
+file:///C:/Users/emezmat/Downloads/Performance_analysis_of_multi-rate_signal_processi.pdf Full
+https://www.dsprelated.com/showcode/270.php Halfband filter
