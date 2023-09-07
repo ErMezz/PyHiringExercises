@@ -95,7 +95,7 @@ P_CICComp = Dig_FIL([A,B,A])
 Q_FIR = Dig_FIL(h)
 P_FIR = Dig_FIL(h)
 
-samples = 1e4+1
+samples = 1e5+1
 dT = 1e-6
 
 t = [tt*dT for tt in range(int(samples))]
