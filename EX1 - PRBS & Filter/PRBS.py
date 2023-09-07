@@ -68,7 +68,8 @@ class PRBS_seq():
         seq = [1]
         fexp=lambda x,y: x^y
         
-        #Main cycle. Calcolo nuovo bit, lo inserisco in sequenza mascherata di lunghezza 2^max(tap)-1 per verificare se è ripetuta
+        # Main cycle. Calculate next bit, insert in masked sequence of legnth
+        # 2^max(tap)-1to verify if pattern started repeating
         while (1):      
             newbit = reduce(fexp, [(curr & 1<<(tap-1))>>tap-1 for tap in self.taps] )  
             seq.append(newbit)
@@ -79,7 +80,7 @@ class PRBS_seq():
                 seq.pop(len(seq)-1)
                 break
         
-        #Passo a PRBSQ per il PAM4
+        # Generate PRBSQ if PAM4
         if PAM4: 
             seq = seq + seq
             oseq = []
@@ -89,7 +90,7 @@ class PRBS_seq():
                 i+=2
             seq = oseq
         
-        #Restituisco la sequenza come lista di valori
+        # Return the sequence
         return seq
     
     
@@ -125,7 +126,7 @@ class PRBS_seq():
         seq = []
         ts = []
         t=0
-        # Inserisco valori di peak e genero timestamp
+        # Prepare time-voltage array
         for i in b_seq:
             if PAM4: seq.append(round(((i-1.5)*Vpeak)/1.5,3))
             else: seq.append(round(((i-0.5)*Vpeak)/0.5,3))
@@ -135,7 +136,7 @@ class PRBS_seq():
         actT = 0
         res = 0
         timestamps = []
-        # Campiono la sequenza originale
+        # Sample the sequence
         while actT < ts[-1]:
             while actT >= ts[res+1]: res+=1
             sampled_seq.append(seq[res])

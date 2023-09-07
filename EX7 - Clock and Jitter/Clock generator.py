@@ -124,9 +124,10 @@ for name in enumerate(ylab): ax[name[0]].set_ylabel(name[1])
 xlab = ["Time [s]","Time [UI]","Time [s]"]
 for name in enumerate(xlab): ax[name[0]].set_xlabel(name[1])
 
+# Save plots
 plt.tight_layout()
 fig1.savefig('Clock.png')
 print("Figure saved as Clock.png")
 
-
+# Show plots
 plt.show()

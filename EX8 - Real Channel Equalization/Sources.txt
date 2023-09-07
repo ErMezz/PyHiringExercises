@@ -1,0 +1,2 @@
+[12]: https://people.engr.tamu.edu/spalermo/ecen689/lecture7_ee689_channel_transient.pdf
+[13]: https://en.wikipedia.org/wiki/Scattering_parameters

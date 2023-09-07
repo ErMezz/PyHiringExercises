@@ -32,11 +32,14 @@ print(H)
 warnings.filterwarnings('ignore')
 tt, yy = ct.forced_response(H,t,y,1e-22)
 
-# Plot and save data
+# Plot data
 fig = plt.figure(figsize=[9,5])
 ax1 = fig.add_subplot(111)
+
 # Calculate number of points to get 100 symbols
 sympts = floor(sampFreq / sigFreq) * 100
+
+# Set labels and x-axis tics
 ax1.set_ylabel('Voltage [V]')
 ax1.set_xlabel('Time [ns]', loc = 'center')
 ax1.set_title('Original vs Filtered signal, first 100 symbols', loc = 'center')
@@ -45,7 +48,8 @@ ax1.plot(tt[:sympts]*1e9,yy[:sympts], 'darkred', label = 'Filtered', linewidth =
 plt.legend(loc = 'upper right')
 ax1.xaxis.set_ticks(np.linspace(0, int(tt[sympts]*1e9), 11))
 ax1.grid(axis = 'x', alpha = 0.8, linestyle = '--')
+
+# Show and save plots
 fig.savefig('Filtered_PRBS13_TimePlot.png', bbox_inches='tight')
-# Prevents Spyder from forcefully showing figure because of interactive mode
-plt.close(fig)
+plt.show()
 print('Figure saved as Filtered_PRBS13_TimePlot.png')

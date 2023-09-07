@@ -7,25 +7,24 @@ from PID import PID
 from matplotlib import pyplot as plt
 
 # Generate PID class instances and simulate system
-
-noInt_PID = PID(1, 0, 0)
-
-start = 0
-deltat = 1
-steps = 5000
-sys = syst
-start_p = 0
-set_p = 100
-start_var = 0
+start = 0 # Start time
+deltat = 1 # Time increment
+steps = 5000 # Step number
+sys = syst # System description function, imported from ClimaticChamber.py
+start_p = 0 # Monitored variable starting value
+set_p = 100 # Setpoint
+start_var = 0 # Manipulated variable starting value
 resistor_range = [0,400] # Assuming resistor temperature cannot go below 0 and above 400 °C
+
+# Proportional gain only PID simulation
+noInt_PID = PID(1, 0, 0)
 t1,y11,y12 = noInt_PID.Simulate_1stDeg(start, deltat, steps, sys, start_p, set_p, start_var,resistor_range)
 
+# Second PID simulation with non-zero integral gain
 int_PID = PID(1, 0.002, 0)
-
 t2,y21,y22 = int_PID.Simulate_1stDeg(start, deltat, steps, sys, start_p, set_p, start_var,resistor_range)
 
-# Plot and save data
-
+# Plot data and prepare labels and legends
 fig = plt.figure(figsize=[18,5])
 fig.subplots_adjust(top=0.92, left=0.05, right = 0.98)
 ax1 = fig.add_subplot(121)
@@ -45,6 +44,7 @@ ax1.legend(loc = 'lower right')
 ax2.legend(loc = 'lower right')
 plt.tight_layout()
 fig.savefig('Climatic_Chmaber_PID.png', bbox_inches='tight')
-# Prevents Spyder from forcefully showing figure because of interactive mode
-plt.close(fig)
+
+# Show and save plots
+plt.show(fig)
 print('Figure saved as Climatic_Chmaber_PID.png')

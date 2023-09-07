@@ -51,13 +51,24 @@ class PID():
         A tuple of lists: (Time,System status, Var status)
 
         """
+        # Reset the PID before starting full simulation
         self.Reset()
+        
+        # Get first error data
         self.lastErr = set_p - start_p
+        
+        # Prepare some lists for elaboration
         times = [start]
         var_sol = [start_var,]
         y_sol = [start_p]
+        
+        # Check if there is a limit on maximum manipulated variable range. If
+        # so, prepare some variables to use it
         if len(var_range) == 2: mi,ma,ch = var_range[0],var_range[1],True
         else: mi,ma,ch = 0,0,False
+        
+        # Main cycle: integrate system over the step, calculate PID reaction
+        # and fill lists with data
         for i in range(1,steps+1):
             times += [start + i * deltat]
             int_t = np.linspace(times[i-1],times[i],100)
@@ -67,4 +78,7 @@ class PID():
             sol = sp.integrate.odeint(sys,y_sol[-1], int_t, args = vart, tfirst=True)
             var_sol.append(var)
             y_sol.append(sol[-1][0])
+        
+        # When elaboration ends, return time array, and observed variable and 
+        # manipulated variable over time array
         return times,y_sol,var_sol

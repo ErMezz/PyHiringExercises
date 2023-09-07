@@ -178,5 +178,5 @@ fig2.tight_layout()
 fig1.savefig('Simulated_Signals.png')
 fig2.savefig('Bode_Plots.png')
 
-# Prevent spyder from forcing PLT open
-plt.close()
+# Show figures
+plt.show()
