@@ -32,12 +32,8 @@ class comb:
     
 class CIC:
     def __init__(self,decim,order):
-        self.integ = []
-        for i in range(order):
-            self.integ.append(integrator())
-        self.comb = []
-        for i in range(order):
-            self.comb.append(comb())
+        self.integ = [integrator() for i in range(order)]
+        self.comb = [comb() for i in range(order)]
         self.count = -1
         self.decim = decim
         self.gain = decim**order
@@ -91,6 +87,12 @@ if __name__  == '__main__':
     FIL_Q = CIC(decimation,N)
     Q_FIR = Dig_FIL(h)
     
+    # CIC compensation
+    a = 0.05
+    taps = [-a/(1-2*a),1/(1-2*a),-a/(1-2*a)]
+    COMP_Filter = Dig_FIL(taps)
+
+    
     samples = 1e5
     dT = 1e-6
     
@@ -101,11 +103,11 @@ if __name__  == '__main__':
     plt.plot(t,y)
     resample = []
     re = True
-    for (s, v) in enumerate(y):
+    for v in y:
         sample,up = FIL_Q.update(v)
         if sample: 
-            up = Q_FIR.update(up)/TG
-
+            up = COMP_Filter.update(up)
+            up = Q_FIR.update(up)
             if re: 
                 resample.append(up)
                 re=False

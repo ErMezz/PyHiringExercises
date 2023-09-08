@@ -4,6 +4,6 @@
 
 Eugene Hogenauer, "An Economical Class of Digital Filters For Decimation and Interpolation,"
 
-https://jwcn-eurasipjournals.springeropen.com/articles/10.1186/s13638-019-1349-9 Full
+https://jwcn-eurasipjournals.springeropen.com/articles/10.1186/s13638-019-1349-9 Downconverter design
 https://www.dsprelated.com/showcode/270.php Halfband filter calculation
 https://vixra.org/pdf/1405.0053v1.pdf FIR CIC compensator
